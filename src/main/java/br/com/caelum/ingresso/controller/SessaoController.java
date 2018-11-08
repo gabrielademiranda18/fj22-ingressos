@@ -53,7 +53,7 @@ public class SessaoController {
 			return form(form.getSalaId(), form);
 		}
 		
-		Sessao sessao = form.toSessao(salaDao, filmeDao);
+		Sessao sessao = form.toSessao(filmeDao, salaDao);
 		
 		List<Sessao> sessoesDaSala = sessaoDao.buscaSessoesDaSala(sessao.getSala());
 		
