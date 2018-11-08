@@ -1,5 +1,7 @@
 package br.com.caelum.ingresso.controller;
 
+import java.util.List;
+
 import javax.naming.Binding;
 import javax.validation.Valid;
 
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +20,7 @@ import br.com.caelum.ingresso.dao.SalaDao;
 import br.com.caelum.ingresso.dao.SessaoDao;
 import br.com.caelum.ingresso.model.Sessao;
 import br.com.caelum.ingresso.model.form.SessaoForm;
+import br.com.caelum.ingresso.validacao.GerenciadorDeSessao;
 
 @Controller @Transactional
 public class SessaoController {
@@ -42,16 +46,26 @@ public class SessaoController {
 		return modelAndView;
 	}
 	
-	@PostMapping("/admin/sessao")
+	@PostMapping("/admin/sessao") @Transactional
 	public ModelAndView salva(@Valid SessaoForm form, BindingResult result) {
 		
 		if(result.hasErrors()) {
 			return form(form.getSalaId(), form);
 		}
 		
-		Sessao sessao = form.toSessao(filmeDao, salaDao);
-		sessaoDao.save(sessao);
+		Sessao sessao = form.toSessao(salaDao, filmeDao);
 		
-		return new ModelAndView("redirect:/admin/sala/" + form.getSalaId()  + "/sessoes/");
+		List<Sessao> sessoesDaSala = sessaoDao.buscaSessoesDaSala(sessao.getSala());
+		
+		GerenciadorDeSessao gerenciador = new GerenciadorDeSessao(sessoesDaSala);
+		
+		if(gerenciador.cabe(sessao)) {
+			sessaoDao.save(sessao);
+			return new ModelAndView("redirect:/admin/sala/" + form.getSalaId() + "/sessoes");
+		}
+		
+		result.addError(new FieldError("sessaoForm", "horario", "Já existe uma sessão no horário informado."));
+		
+		return form(form.getSalaId(), form);
 	}
 }

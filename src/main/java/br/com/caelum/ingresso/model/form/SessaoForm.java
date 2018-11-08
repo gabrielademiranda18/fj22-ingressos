@@ -15,6 +15,7 @@ import br.com.caelum.ingresso.model.Sessao;
 public class SessaoForm {
 	
 	private Integer id;
+<<<<<<< HEAD
 	@NotNull(message="Sala não pode ser nula")
 	private Integer salaId;
 	@DateTimeFormat(pattern="HH:mm")
@@ -55,4 +56,46 @@ public class SessaoForm {
 		this.horario = horario;
 	}
 
+=======
+	@NotNull
+	private Integer salaId;
+	@NotNull @DateTimeFormat(pattern="HH:mm")
+	private LocalTime horario;
+	@NotNull
+	private Integer filmeId;
+	
+	public Sessao toSessao(SalaDao salaDao, FilmeDao filmeDao) {
+		Filme filme = filmeDao.findOne(filmeId);
+		Sala sala = salaDao.findOne(salaId);
+		
+		Sessao sessao = new Sessao(this.horario, filme, sala);
+		
+		return sessao;
+	}	
+	public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    public LocalTime getHorario() {
+        return horario;
+    }
+    public void setHorario(LocalTime horario) {
+        this.horario = horario;
+    }
+    public Integer getSalaId() {
+        return salaId;
+    }
+    public void setSalaId(Integer salaId) {
+        this.salaId = salaId;
+    }
+    public Integer getFilmeId() {
+        return salaId;
+    }
+    public void setFilmeId(Integer filmeId) {
+        this.filmeId = filmeId;
+    }
+	
+>>>>>>> work
 }
