@@ -1,0 +1,9 @@
+Integrar mudanças - merge
+		  - rebase 
+
+git checkout design
+git rebase master
+git checkout master
+git merge design
+
+Apagar branch: git branch -d <nomedabranch>

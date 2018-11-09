@@ -1,0 +1,56 @@
+Working Directory - os arquivos que você altera 
+Repository - as versões de todos gravados (binário) - cria pasta .git  (branches, config, hooks, objects, HEAD)
+Staging Area - untracked files (antes do commit)
+
+.gitconfig (informações globais do git)
+
+Repositório distribuído:
+git remote add maria <url>
+git pull maria master
+git push maria master
+
+Respositório central (origin) (Github, Gitlab):
+git remote add origin <url>
+git pull origin master
+git push origin master
+
+Git clone (todos os comandos abaixo em um só):
+mkdir <diretorio>
+git init
+git remote add origin <url>
+git pulll origin master 
+
+fork - copia no github (somente na interface web)
+clone - copia na máquina
+
+Dependências transitivas - dependências das dependências
+Conflito de versões - "Jar Hell"
+
+Maven (define estrutura comum do projeto):
+Gerenciador de dependências (deve ser declarativo) - baixar dependências em um comando e detectar conflitos
+Ferramenta de build - constrói .war (o entregável) em um comando só
+
+pom.xml (project object model) - onde se declara dependências do maven
+ - artifact id : nome do projeto
+ - group id : domínio reverso da empresa 
+ - version : versão do projeto (-SNAPSHOT: versão em desenvolvimento)
+ - packaging : qual o empacotamento será usado no projeto
+
+jars do repositório central do maven: repo.maven.apache.org/maven2
+
+repo.spring.io/release (spring)
+repository.jboss.org/nexus/content/repositories (hibernate)
+
+baixa jars para pasta .m2 do usuário (home/lab7989/.m2) - repositório maven local
+
+Buscar dependências:
+search.maven.org
+mvnrepository.org
+
+Ciclo de Vida Maven: validate - (generate-sources / baixa os jars) - compile - test - package / cada fase é feita por um plugin
+
+Pasta target: build -> cria .war nessa pasta
+
+Jetty-maven-plugin : servlet container 
+
+<scope> teste / provided </scope>

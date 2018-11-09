@@ -1,0 +1,10 @@
+Testes Automatizados : código que chama o sistema (método de uma classe) e verifica o resultado
+
+- ARRANGE: criação de objetos (new)
+- ACT: chamada de um método
+- ASSERT: verificação do resultado
+
+Teste de unidade: código Java chamando outro código Java
+Teste de sistema: subir servidor, navegador (seleniun), BD, etc
+Teste de API: servidor pra baixo, simulando a tela/navegador 
+
