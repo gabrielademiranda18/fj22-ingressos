@@ -26,8 +26,6 @@ public class SessaoDao {
 		return manager.createQuery("select s from Sessao s where s.sala = :sala", Sessao.class)
 				.setParameter("sala", sala)
 				.getResultList();
-
-
 	}
 	
 	public List<Sessao> buscaSessoesDoFilme(Filme filme) {
@@ -35,7 +33,9 @@ public class SessaoDao {
 		return manager.createQuery("select s from Sessao s where s.filme = :filme", Sessao.class)
 				.setParameter("filme", filme)
 				.getResultList();
-
-
+	}
+	
+	public Sessao findOne(Integer id) {
+		return manager.find(Sessao.class, id);
 	}
 }
